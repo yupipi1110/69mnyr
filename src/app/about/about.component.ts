@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+
+//highlightにskyblueを渡している。
 @Component({
   template: `
   <h2 highlight="skyblue">About</h2>

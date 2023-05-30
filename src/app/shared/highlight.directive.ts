@@ -7,22 +7,27 @@ import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
  * and set the element's customProperty to true
  */
 export class HighlightDirective implements OnChanges {
-
-  defaultColor =  'rgb(211, 211, 211)'; // lightgray
+  //デフォルトの背景色(グレー)
+  defaultColor = 'rgb(211, 211, 211)'; // lightgray
 
   //@Inputで背景色を受け取る
+  //例えば、HTMLテンプレート内で[highlight]="'blue'"のように設定された場合
+  //その値はbgColorプロパティにセットされ、ngOnChangesが呼び出されます。
   @Input('highlight') bgColor = '';
 
+  //このクラスをコンストラクタに注入することで、ディレクティブ内からDOM要素に直接アクセスできます。
   constructor(private el: ElementRef) {
     el.nativeElement.style.customProperty = true;
   }
 
   //受け取った背景色があれば、更新する
+  //this.el.nativeElement.style.backgroundColor...ディレクティブが適用されている要素の背景色
+  //this.bgColor || this.defaultColor...this.bgColorに値が設定されていれば世の値が適応、
+  //されていない場合this.defaultColorの値が使用されます。
   ngOnChanges() {
-    this.el.nativeElement.style.backgroundColor = this.bgColor || this.defaultColor;
+    this.el.nativeElement.style.backgroundColor =this.bgColor || this.defaultColor;
   }
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.
